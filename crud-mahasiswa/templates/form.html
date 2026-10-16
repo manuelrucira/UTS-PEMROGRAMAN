@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Tambah' if mode == 'tambah' else 'Ubah' }} mahasiswa{% endblock %}
+{% block content %}
+<h1>{{ 'Tambah mahasiswa' if mode == 'tambah' else 'Ubah data mahasiswa' }}</h1>
+
+<form class="card form" method="post" novalidate>
+  <label>NIM
+    <input type="text" inputmode="numeric" name="nim" value="{{ m.get('nim', '') }}" required>
+  </label>
+  <label>Nama
+    <input type="text" name="nama" value="{{ m.get('nama', '') }}" required>
+  </label>
+  <label>Program studi
+    <input type="text" name="program_studi" value="{{ m.get('program_studi', '') }}" required>
+  </label>
+  <div class="two">
+    <label>Angkatan
+      <input type="text" inputmode="numeric" name="angkatan" value="{{ m.get('angkatan', '') }}" placeholder="2023" required>
+    </label>
+    <label>IPK (0.00 - 4.00)
+      <input type="text" inputmode="decimal" name="ipk" value="{{ m.get('ipk', '') }}" placeholder="3.75" required>
+    </label>
+  </div>
+  <p class="hint">Lama studi dihitung otomatis dari angkatan.</p>
+  <div class="row-btn">
+    <button class="btn btn-primary" type="submit">{{ 'Simpan mahasiswa' if mode == 'tambah' else 'Simpan perubahan' }}</button>
+    <a class="btn" href="{{ url_for('index') if mode == 'tambah' else url_for('detail', id_=m.id) }}">Batal</a>
+  </div>
+</form>
+{% endblock %}
